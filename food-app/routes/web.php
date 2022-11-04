@@ -24,8 +24,10 @@ Route::group(['middleware' => ['CheckLogin']], function () {
     Route::get('/table-product',[AdminController::class,'tableProduct']);
     Route::get('/admin-index',[AdminController::class,'index']);
 });
-Route::get('/',[CheckController::class,'checkUserType']);
+Route::get('/contact',[HomeController::class,'contact']);
+Route::get('/shop-details',[HomeController::class,'shopDetails']);
 Route::get('/shop-grid',[HomeController::class,'shopGrid']);
+Route::get('/',[CheckController::class,'checkUserType']);
 Route::get('/index',[HomeController::class,'index']);
 
 Route::get('/dashboard', function () {

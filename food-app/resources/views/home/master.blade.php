@@ -103,29 +103,32 @@
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
                             @if(Auth::check())
-                                @if(Auth::user()->user_type === 'user')
-                                    <form method="POST" action="{{ route('logout') }}">
-                                        @csrf  
-                                        <div class="header__top__right__social">
-                                        <a href="{{url('/home.login-register.login')}}">Welcome {{Auth::user()->name}}</a>
-                                        <span><img src="{{asset('images/' .Auth::user()->avata)}}" alt="" style="width:28px; border-radius:50%;"></span>
-                                        </div>
-                                        <div class="header__top__right__auth">
-                                            <a href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();"><i class="fa fa-user"></i> Logout</a>
-                                        </div> 
-                                    </form>
-                                @else
-                                    <div class="header__top__right__auth">
-                                        <a href="{{route('login')}}"><i class="fa fa-user"></i> Login</a>
-                                    </div>
-                                @endif
-                            @else
+                            @if(Auth::user()->user_type === 'user')
+                            <form method="POST" action="{{ route('logout') }}">
+                                @csrf
                                 <div class="header__top__right__social">
-                                    <a href="{{route('login')}}"><i class="fa fa-user"></i> Login</a>
+                                    <a href="{{url('/home.login-register.login')}}">Welcome {{Auth::user()->name}}</a>
+                                    <span><img src="{{asset('images/' .Auth::user()->avata)}}" alt=""
+                                            style="width:28px; border-radius:50%;"></span>
                                 </div>
                                 <div class="header__top__right__auth">
-                                    <a href="{{route('register')}}"><i class="fa fa-user"></i>Register</a>
+                                    <a href="route('logout')"
+                                        onclick="event.preventDefault(); this.closest('form').submit();"><i
+                                            class="fa fa-user"></i> Logout</a>
                                 </div>
+                            </form>
+                            @else
+                            <div class="header__top__right__auth">
+                                <a href="{{route('login')}}"><i class="fa fa-user"></i> Login</a>
+                            </div>
+                            @endif
+                            @else
+                            <div class="header__top__right__social">
+                                <a href="{{route('login')}}"><i class="fa fa-user"></i> Login</a>
+                            </div>
+                            <div class="header__top__right__auth">
+                                <a href="{{route('register')}}"><i class="fa fa-user"></i>Register</a>
+                            </div>
                             @endif
                         </div>
                     </div>
@@ -140,14 +143,6 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                    <nav class="header__menu">
-                        <ul>
-                            <li class="active"><a href="{{ url('/index')}}">Home</a></li>
-                            <li class="active"><a href="{{ url('/shop-grid')}}">Shop</a></li>
-                            <li class="active"><a href="{{ url('/home.blog')}}">Blog</a></li>
-                            <li class="active"><a href="{{ url('/home.contact')}}">Contact</a></li>
-                        </ul>
-                    </nav>
                 </div>
                 <div class="col-lg-3">
                     <div class="header__cart">
@@ -178,7 +173,7 @@
                         </div>
                         <ul>
                             @foreach($allCategory as $row)
-                                <li><a href="{{url('home.shop')}}?catalog_id={{$row->id}}">{{$row->name}}</a></li>
+                            <li><a href="{{url('home.shop')}}?catalog_id={{$row->id}}">{{$row->name}}</a></li>
                             @endforeach
                         </ul>
                     </div>
@@ -197,7 +192,8 @@
                         </div>
                         <div class="hero__search__phone">
                             <div class="hero__search__phone__icon">
-                                <i class="fa fa-phone"></i>
+                                <i onclick="location.href='{{url('/contact')}}';" style="cursor: pointer;"
+                                    class="fa fa-phone"></i>
                             </div>
                             <div class="hero__search__phone__text">
                                 <h5>+65 11.188.888</h5>
