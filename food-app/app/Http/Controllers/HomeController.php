@@ -17,20 +17,51 @@ class HomeController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    // Page
-    function index(){
+    // Page Index:
+    function index(Request $request){
+        //Category:
         $allCategory = Category::all();
-        $allProduct = Product::all();
+        //Product:
+        if(isset($request->category_id)){
+            $allProduct = Product::where('category_id',$request->category_id)->orderBy('id', 'desc')
+            ->paginate(16)->appends(['category_id' => $request->category_id]);
+        }
+        else{
+            $allProduct = Product::orderBy('id', 'desc')->paginate(16);
+        }
+        //
         return view('home.index',[ 
             'allCategory' => $allCategory,
             'allProduct' => $allProduct,
         ]);
     }
+    
+    // Page Shop-Gird:
     function shopGrid()
     {
+        //Category:
         $allCategory = Category::all();
-        //code
         return view('home.shop-grid',[
+            'allCategory' => $allCategory,
+        ]);
+    }
+
+    // Page Shop-Details:
+    function shopDetails()
+    {
+        //Category:
+        $allCategory = Category::all();
+        return view('home.shop-details',[
+            'allCategory' => $allCategory,
+        ]);
+    }
+
+    // Page Contact:
+    function contact()
+    {
+        //Category:
+        $allCategory = Category::all();
+        return view('home.contact',[
             'allCategory' => $allCategory,
         ]);
     }
