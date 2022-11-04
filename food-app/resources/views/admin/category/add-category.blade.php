@@ -11,7 +11,7 @@
               <div class="col-12 grid-margin stretch-card">
                 <div class="card">
                   <div class="card-body">
-                    <form class="forms-sample">
+                    <form class="forms-sample" >
                       <div class="form-group">
                         <label for="exampleInputName1">Name</label>
                         <input type="text" name="name" class="form-control" id="exampleInputName1" placeholder="Enter name">
