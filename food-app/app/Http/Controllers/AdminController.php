@@ -39,8 +39,18 @@ class AdminController extends Controller
         return view('admin.category.table-category');
     }
 
-    function addCategory(){
+    // Add Category:
+    function fileAddCategory(){
         return view('admin.category.add-category');
+    }
+    function addCategory(Request $request)
+    {
+        $request->validate([
+            'name' => 'required'
+        ]);
+        $input = $request->all();
+        Category::create($input);
+        return redirect('table-category')->with('success', 'Category created successfully.');
     }
 
     function editCategory(){

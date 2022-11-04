@@ -1278,37 +1278,37 @@ class DatabaseSeeder extends Seeder
         ]);
 
         //
-        DB::table('users')->insert([
-            [
-                'name' => 'Nguyễn Ngọc Hải',
-                'username' => 'hai123',
-                'password' => bcrypt('hai123'),
-                'image' => 'image'
-            ],
-            [
-                'name' => 'Nguyễn Phương Trường',
-                'username' => 'truong123',
-                'password' => bcrypt('truong123'),
-                'image' => 'image'
-            ],
-            [
-                'name' => 'Võ Văn Thọ',
-                'username' => 'tho123',
-                'password' => bcrypt('tho123'),
-                'image' => 'image'
-            ],
-            [
-                'name' => 'Phạm Ngọc Thiện',
-                'username' => 'thien123',
-                'password' => bcrypt('thien123'),
-                'image' => 'image'
-            ],
-            [
-                'name' => 'Trần Ngọc Hoàng Oanh',
-                'username' => 'thien123',
-                'password' => bcrypt('thien123'),
-                'image' => 'image'
-            ]
-        ]);
+        // \DB::table('users')->insert([
+        //     [
+        //         'name' => 'Nguyễn Ngọc Hải',
+        //         'username' => 'hai123',
+        //         'password' => bcrypt('hai123'),
+        //         'image' => 'image'
+        //     ],
+        //     [
+        //         'name' => 'Nguyễn Phương Trường',
+        //         'username' => 'truong123',
+        //         'password' => bcrypt('truong123'),
+        //         'image' => 'image'
+        //     ],
+        //     [
+        //         'name' => 'Võ Văn Thọ',
+        //         'username' => 'tho123',
+        //         'password' => bcrypt('tho123'),
+        //         'image' => 'image'
+        //     ],
+        //     [
+        //         'name' => 'Phạm Ngọc Thiện',
+        //         'username' => 'thien123',
+        //         'password' => bcrypt('thien123'),
+        //         'image' => 'image'
+        //     ],
+        //     [
+        //         'name' => 'Trần Ngọc Hoàng Oanh',
+        //         'username' => 'thien123',
+        //         'password' => bcrypt('thien123'),
+        //         'image' => 'image'
+        //     ]
+        // ]);
     }
 }

@@ -36,14 +36,27 @@ class RegisteredUserController extends Controller
         $request->validate([
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+            'phone' => ['required'],
+            'address' => ['required'],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
         ]);
 
-        $user = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
-        ]);
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->phone = $request->phone;
+        $user->address = $request->address;
+        $user->password = Hash::make($request->password);
+        if ($request->hasFile('avata')) {
+            $file = $request->avata;
+            $file_name = $file->getClientOriginalName();
+            $file-> move(public_path('images'), $file_name);
+            $request->merge(['avata' => $file_name]);
+            $user->avata = $file_name;
+        } else {
+            $user->avata = $request->value_avata;
+        }
+        $user->save();
 
         event(new Registered($user));
 

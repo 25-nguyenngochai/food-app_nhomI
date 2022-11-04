@@ -102,18 +102,31 @@
                     </div>
                     <div class="col-lg-6 col-md-6">
                         <div class="header__top__right">
-                            <div class="header__top__right__social">
-                                <a href="#"><i class="fa fa-facebook"></i></a>
-                                <a href="#"><i class="fa fa-twitter"></i></a>
-                                <a href="#"><i class="fa fa-linkedin"></i></a>
-                                <a href="#"><i class="fa fa-pinterest-p"></i></a>
-                            </div>
-                            <div class="header__top__right__social">
-                                <a href="{{url('/home.login-register.login')}}"><i class="fa fa-user"></i> Xin chào Bạn</a>
-                            </div>
-                            <div class="header__top__right__auth">
-                                <a href="{{ route('login') }}"><i class="fa fa-user"></i> Login</a>
-                            </div>
+                            @if(Auth::check())
+                                @if(Auth::user()->user_type === 'user')
+                                    <form method="POST" action="{{ route('logout') }}">
+                                        @csrf  
+                                        <div class="header__top__right__social">
+                                        <a href="{{url('/home.login-register.login')}}">Welcome {{Auth::user()->name}}</a>
+                                        <span><img src="{{asset('images/' .Auth::user()->avata)}}" alt="" style="width:28px; border-radius:50%;"></span>
+                                        </div>
+                                        <div class="header__top__right__auth">
+                                            <a href="route('logout')" onclick="event.preventDefault(); this.closest('form').submit();"><i class="fa fa-user"></i> Logout</a>
+                                        </div> 
+                                    </form>
+                                @else
+                                    <div class="header__top__right__auth">
+                                        <a href="{{route('login')}}"><i class="fa fa-user"></i> Login</a>
+                                    </div>
+                                @endif
+                            @else
+                                <div class="header__top__right__social">
+                                    <a href="{{route('login')}}"><i class="fa fa-user"></i> Login</a>
+                                </div>
+                                <div class="header__top__right__auth">
+                                    <a href="{{route('register')}}"><i class="fa fa-user"></i>Register</a>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -123,14 +136,14 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="header__logo">
-                        <a href="./index.html"><img src="img/logo.png" alt=""></a>
+                        <a href="{{url('/index')}}"><img src="img/logo.png" alt=""></a>
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <nav class="header__menu">
                         <ul>
-                            <li class="active"><a href="{{ url('/')}}">Home</a></li>
-                            <li class="active"><a href="{{ url('/home.shop-grid')}}">Shop</a></li>
+                            <li class="active"><a href="{{ url('/index')}}">Home</a></li>
+                            <li class="active"><a href="{{ url('/shop-grid')}}">Shop</a></li>
                             <li class="active"><a href="{{ url('/home.blog')}}">Blog</a></li>
                             <li class="active"><a href="{{ url('/home.contact')}}">Contact</a></li>
                         </ul>

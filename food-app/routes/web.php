@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\CheckController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\AdminController;
 
@@ -14,15 +15,18 @@ use App\Http\Controllers\AdminController;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/edit-category',[AdminController::class,'editCategory']);
-Route::get('/add-category',[AdminController::class,'addCategory']);
-Route::get('/table-category',[AdminController::class,'tableCategory']);
-Route::get('/edit-product',[AdminController::class,'editProduct']);
-Route::get('/add-product',[AdminController::class,'addProduct']);
-Route::get('/table-product',[AdminController::class,'tableProduct']);
-Route::get('/admin-index',[AdminController::class,'index']);
-
-Route::get('/',[HomeController::class,'index']);
+Route::group(['middleware' => ['CheckLogin']], function () {
+    Route::get('/edit-category',[AdminController::class,'editCategory']);
+    Route::get('/add-category',[AdminController::class,'fileAddCategory']);
+    Route::get('/table-category',[AdminController::class,'tableCategory']);
+    Route::get('/edit-product',[AdminController::class,'editProduct']);
+    Route::get('/add-product',[AdminController::class,'addProduct']);
+    Route::get('/table-product',[AdminController::class,'tableProduct']);
+    Route::get('/admin-index',[AdminController::class,'index']);
+});
+Route::get('/',[CheckController::class,'checkUserType']);
+Route::get('/shop-grid',[HomeController::class,'shopGrid']);
+Route::get('/index',[HomeController::class,'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');
