@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use App\Models\Category;
+use App\Models\Cart;
 use App\Models\Product;
 
 
@@ -56,6 +58,55 @@ class HomeController extends Controller
         ]);
     }
 
+    // Page Shoping-Cart:
+    function shopingCart()
+    {
+        //Category:
+        $allCategory = Category::all();
+        //
+        return view('home.shoping-cart',[
+            'allCategory' => $allCategory,
+        ]);
+    }
+        // Add Cart:
+        function getAddCart(Request $request, $id)
+        {
+            $product = Product::find($id);
+            $oldCart = Session('cart')?Session::get('cart'):null;
+            $cart = new Cart($oldCart);
+            $cart->add($product, $id);
+            $request->session()->put('cart', $cart);
+            return redirect()->back()->with('thongbao', 'Đặt hàng thành công');
+        }
+        // Delete cart:
+        function getDelCart($id)
+        {
+            $oldCart = Session('cart')?Session::get('cart'):null;
+            $cart = new Cart($oldCart);
+            $cart->removeItem($id);
+            session::put('cart', $cart);
+            return redirect('shoping-cart');
+        }
+        function getDelCartOne($id)
+        {
+            $oldCart = Session('cart')?Session::get('cart'):null;
+            $cart = new Cart($oldCart);
+            $cart->reduceByOne($id);
+            session::put('cart', $cart);
+            return redirect('shoping-cart');
+        }
+    
+    // Page checkout:
+    function checkout()
+    {
+        //Category:
+        $allCategory = Category::all();
+        //
+        return view('home.checkout',[
+            'allCategory' => $allCategory,
+        ]);
+    }
+    
     // Page Contact:
     function contact()
     {

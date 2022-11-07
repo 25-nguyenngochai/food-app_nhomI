@@ -24,11 +24,16 @@ Route::group(['middleware' => ['CheckLogin']], function () {
     Route::get('/table-product',[AdminController::class,'tableProduct']);
     Route::get('/admin-index',[AdminController::class,'index']);
 });
-Route::get('/contact',[HomeController::class,'contact']);
-Route::get('/shop-details',[HomeController::class,'shopDetails']);
-Route::get('/shop-grid',[HomeController::class,'shopGrid']);
+Route::get('contact',[HomeController::class,'contact']);
+Route::get('checkout',[HomeController::class,'checkout']);
+Route::get('delcartone/{id}',[HomeController::class,'getDelCartOne'])->name('delcartone');
+Route::get('delcart/{id}',[HomeController::class,'getDelCart'])->name('delCart');
+Route::get('addcart/{id}',[HomeController::class,'getAddCart'])->name('addCart');
+Route::get('shoping-cart',[HomeController::class,'shopingCart']);
+Route::get('shop-details',[HomeController::class,'shopDetails']);
+Route::get('shop-grid',[HomeController::class,'shopGrid']);
 Route::get('/',[CheckController::class,'checkUserType']);
-Route::get('/index',[HomeController::class,'index']);
+Route::get('index',[HomeController::class,'index']);
 
 Route::get('/dashboard', function () {
     return view('dashboard');

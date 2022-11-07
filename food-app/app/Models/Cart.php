@@ -19,6 +19,7 @@ class Cart extends Model
         }
     }
 
+    // Add:
     public function add($item, $id)
     {
        $giohang = ['qty'=>0, 'price' => $item->price, 'item' => $item];
@@ -34,7 +35,7 @@ class Cart extends Model
        $this->totalPrice += $item->price;
     }
 
-    // delete:
+    // Delete:
     public function reduceByOne($id)
     {
         $this->items[$id]['qty']--;
@@ -47,7 +48,7 @@ class Cart extends Model
 
     }
 
-    //deletes:
+    // Deletes:
     public function removeItem($id)
     {
        $this->totalQty -= $this->items[$id]['qty'];

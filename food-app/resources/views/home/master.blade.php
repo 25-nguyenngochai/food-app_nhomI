@@ -142,20 +142,45 @@
                         <a href="{{url('/index')}}"><img src="img/logo.png" alt=""></a>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-5">
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-4">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            @if (Session::has('cart') && Session('cart')->totalQty != 0)
+                            <li><a href="{{url('shoping-cart')}}">Cart&nbsp;&nbsp;<i class="fa fa-shopping-bag"></i>
+                                    <span>
+                                        @if (Session::has('cart'))
+                                        {{Session('cart')->totalQty}}
+                                        @else
+                                        0
+                                        @endif
+                                    </span></a>
+                            </li>
+                            @else
+                            <li><a href="#">Cart&nbsp;&nbsp;<i class="fa fa-shopping-bag"></i> <span>0</span></a>
+                            </li>
+                            @endif
+                            @if (Auth::check())
+                            @if(Auth::user()->user_type === 'user')
+                            &nbsp;&nbsp;&nbsp;
+                            <li><a href="#">Order History&nbsp;&nbsp;<i class="fa fa-history"></i>
+                                    <span>0</span></a>
+                            </li>
+                            &nbsp;&nbsp;&nbsp;
+                            <li><a href="#">Favourite&nbsp;&nbsp;<i class="fa fa-heart"></i> <span>0</span></a></li>
+                            @else
+                            &nbsp;&nbsp;&nbsp;
+                            <li><a href="#">Favourite&nbsp;&nbsp;<i class="fa fa-heart"></i> <span>0</span></a></li>
+                            @endif
+                            @else
+                            &nbsp;&nbsp;&nbsp;
+                            <li><a href="{{url('login')}}">Favourite&nbsp;&nbsp;<i class="fa fa-heart"></i>
+                                    <span>0</span></a></li>
+                            @endif
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
                     </div>
                 </div>
-            </div>
-            <div class="humberger__open">
-                <i class="fa fa-bars"></i>
             </div>
         </div>
     </header>
