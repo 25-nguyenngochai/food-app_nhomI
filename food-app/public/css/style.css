@@ -111,6 +111,10 @@ ol {
   Helper CSS
 -----------------------*/
 
+.favourite {
+	color: #f50808 !important;
+}
+
 .section-title {
 	margin-bottom: 50px;
 	text-align   : center;
@@ -539,6 +543,10 @@ ol {
 	position     : absolute;
 	top          : 0;
 	right        : -12px;
+}
+
+.header__cart ul li a {
+	color: #7fad39;
 }
 
 .header__cart .header__cart__price {
@@ -1782,6 +1790,16 @@ ol {
 	margin-bottom: 5px;
 }
 
+.pro-qtys {
+	width        : 140px;
+	height       : 50px;
+	display      : inline-block;
+	position     : relative;
+	text-align   : center;
+	background   : #f5f5f5;
+	margin-bottom: 5px;
+}
+
 .pro-qty input {
 	height    : 100%;
 	width     : 100%;
@@ -1793,7 +1811,26 @@ ol {
 	text-align: center;
 }
 
+.pro-qtys input {
+	height    : 100%;
+	width     : 100%;
+	font-size : 16px;
+	color     : #6f6f6f;
+	width     : 50px;
+	border    : none;
+	background: #f5f5f5;
+	text-align: center;
+}
+
 .pro-qty .qtybtn {
+	width    : 35px;
+	font-size: 16px;
+	color    : #6f6f6f;
+	cursor   : pointer;
+	display  : inline-block;
+}
+
+.pro-qtys .qtybtn {
 	width    : 35px;
 	font-size: 16px;
 	color    : #6f6f6f;

@@ -2,6 +2,7 @@
 <html lang="zxx">
 
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="UTF-8">
     <meta name="description" content="Ogani Template">
     <meta name="keywords" content="Ogani, unica, creative, html">
@@ -21,9 +22,24 @@
     <link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{asset('css/slicknav.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{asset('css/style.css')}}" type="text/css">
+    <style>
+    #notifDiv {
+        z-index: 10000;
+        display: none;
+        background: green;
+        font-weight: 450;
+        width: 350px;
+        position: fixed;
+        top: 80%;
+        left: 7.8%;
+        color: white;
+        padding: 5px 20px;
+    }
+    </style>
 </head>
 
 <body>
+    <div id="notifDiv"></div>
     <!-- Page Preloder -->
     <div id="preloder">
         <div class="loader"></div>
@@ -142,20 +158,55 @@
                         <a href="{{url('/index')}}"><img src="img/logo.png" alt=""></a>
                     </div>
                 </div>
-                <div class="col-lg-6">
+                <div class="col-lg-5">
                 </div>
-                <div class="col-lg-3">
+                <div class="col-lg-4">
                     <div class="header__cart">
                         <ul>
-                            <li><a href="#"><i class="fa fa-heart"></i> <span>1</span></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-bag"></i> <span>3</span></a></li>
+                            @if (Session::has('cart') && Session('cart')->totalQty != 0)
+                            <li><a href="{{url('shoping-cart')}}">Cart&nbsp;&nbsp;<i class="fa fa-shopping-bag"></i>
+                                    <span>
+                                        @if (Session::has('cart'))
+                                        {{Session('cart')->totalQty}}
+                                        @else
+                                        0
+                                        @endif
+                                    </span></a>
+                            </li>
+                            @else
+                            <li><a href="#">Cart&nbsp;&nbsp;<i class="fa fa-shopping-bag"></i> <span>0</span></a>
+                            </li>
+                            @endif
+                            @if (Auth::check())
+                            @if(Auth::user()->user_type === 'user')
+                            &nbsp;&nbsp;&nbsp;
+                            <li><a href="#">Order History&nbsp;&nbsp;<i class="fa fa-history"></i>
+                                    <span>0</span></a>
+                            </li>
+                            &nbsp;&nbsp;&nbsp;
+                            @php $totalCountWishlist = App\Models\Wishlist::totalCountWishlist() @endphp
+                            <li>
+                                @if($totalCountWishlist == 0)
+                                <a class="update_total" href="#">Favourite&nbsp;&nbsp;<i class="fa fa-heart"></i>
+                                    <span>0</span></a>
+                                @else
+                                <a class="update_total" href="{{url('favourite')}}">Favourite&nbsp;&nbsp;<i
+                                        class="fa fa-heart"></i>
+                                    <span>{{$totalCountWishlist}}</span></a>
+                                @endif
+                            </li>
+                            @else
+                            &nbsp;&nbsp;&nbsp;
+                            <li><a href="#">Favourite&nbsp;&nbsp;<i class="fa fa-heart"></i> <span>0</span></a></li>
+                            @endif
+                            @else
+                            &nbsp;&nbsp;&nbsp;
+                            <li><a href="{{url('login')}}">Favourite&nbsp;&nbsp;<i class="fa fa-heart"></i>
+                                    <span>0</span></a></li>
+                            @endif
                         </ul>
-                        <div class="header__cart__price">item: <span>$150.00</span></div>
                     </div>
                 </div>
-            </div>
-            <div class="humberger__open">
-                <i class="fa fa-bars"></i>
             </div>
         </div>
     </header>
@@ -276,9 +327,7 @@
     <script src="{{asset('js/mixitup.min.js')}}"></script>
     <script src="{{asset('js/owl.carousel.min.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>
-
-
-
+    <script src="{{asset('js/ajax.js')}}"></script>
 </body>
 
 </html>
