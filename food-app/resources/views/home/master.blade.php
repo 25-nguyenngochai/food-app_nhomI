@@ -223,8 +223,8 @@
                             <span>All Categories</span>
                         </div>
                         <ul>
-                            @foreach($allCategory as $row)
-                            <li><a href="{{url('home.shop')}}?catalog_id={{$row->id}}">{{$row->name}}</a></li>
+                            @foreach($allCategory as $value)
+                            <li><a href="{{url('shop-grid')}}?category_id={{$value->id}}">{{$value->name}}</a></li>
                             @endforeach
                         </ul>
                     </div>
