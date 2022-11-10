@@ -192,8 +192,24 @@
                     <div class="featured__item__pic set-bg" data-setbg="{{asset('images/'.$value->image)}}"
                         onclick="location.href='#';" style="cursor: pointer;">
                         <ul class="featured__item__pic__hover">
+                            @php $countWishlist = 0 @endphp
+                            @if(Auth::check())
+                            @php $countWishlist = App\Models\Wishlist::countWishlist($value['id']) @endphp
+                            @if(Auth::user()->user_type === 'user')
+                            <li><a href="" data-product_id="{{$value->id}}" class="update_wishlist">
+                                    @if($countWishlist > 0)
+                                    <i class="favourite fa fa-heart"></i>
+                                    @else
+                                    <i class="fa fa-heart"></i>
+                                    @endif</a></li>
+                            <input type="hidden" value="{{Auth::user()->id}}" id="user_id">
+                            @else
                             <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                            @endif
+                            @else
+                            <li><a href="{{url('login')}}"><i class="fa fa-heart"></i></a></li>
+                            @endif
+                            <li><a href="{{route('addCart', $value->id)}}"><i class="fa fa-shopping-cart"></i></a></li>
                         </ul>
                     </div>
                     <div class="featured__item__text">
