@@ -34,6 +34,7 @@ Route::get('addcart/{id}',[HomeController::class,'getAddCart'])->name('addCart')
 Route::get('shoping-cart',[HomeController::class,'shopingCart']);
 Route::get('shop-details',[HomeController::class,'shopDetails']);
 Route::get('shop-grid',[HomeController::class,'shopGrid']);
+Route::get('my-seach',[HomeController::class,'my_seach']);
 Route::get('/',[CheckController::class,'checkUserType']);
 Route::get('index',[HomeController::class,'index']);
 
