@@ -33,14 +33,35 @@ class HomeController extends Controller
         else{
             $allProduct = Product::orderBy('id', 'desc')->paginate(16);
         }
-        //Wishlist:
-        $allWishlist = Wishlist::all();
 
         return view('home.index',[ 
             'allCategory' => $allCategory,
             'allProduct' => $allProduct,
-            'allWishlist' => $allWishlist,
         ]);
+    }
+
+    // Page Seach:
+    function my_seach()
+    {
+        // Category:
+        $allCategory = Category::all();
+        // Seach::
+        if (isset($_GET['key'])) {
+            $search_text = trim($_GET['key']);
+            if (!empty($search_text)) {
+                $seachAll = Product::where('name', 'like', '%' . $search_text . '%')
+                ->orderBy('id', 'desc')->paginate(6)->appends(['key' => $search_text]);
+                $countSeachAll = Product::where('name', 'like', '%' . $search_text . '%')->count();
+                foreach($seachAll as &$row){
+                    $row->name = preg_replace('/(' .$search_text. ')/i', '<b style="color:red">$1</b>', $row->name);   
+                  }         
+                return view('home.my-seach', [
+                    'allCategory' => $allCategory,
+                    'seachAll' => $seachAll,
+                    'countSeachAll' => $countSeachAll,
+                ]); 
+            } 
+        }
     }
     
     // Page Shop-Gird:

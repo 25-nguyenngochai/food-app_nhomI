@@ -130,17 +130,17 @@
                                 <div class="header__top__right__auth">
                                     <a href="route('logout')"
                                         onclick="event.preventDefault(); this.closest('form').submit();"><i
-                                            class="fa fa-user"></i> Logout</a>
+                                            class="fa fa-user"></i>Logout</a>
                                 </div>
                             </form>
                             @else
                             <div class="header__top__right__auth">
-                                <a href="{{route('login')}}"><i class="fa fa-user"></i> Login</a>
+                                <a href="{{route('login')}}"><i class="fa fa-user"></i>&nbsp;&nbsp;Login</a>
                             </div>
                             @endif
                             @else
                             <div class="header__top__right__social">
-                                <a href="{{route('login')}}"><i class="fa fa-user"></i> Login</a>
+                                <a href="{{route('login')}}"><i class="fa fa-user"></i>&nbsp;&nbsp;Login</a>
                             </div>
                             <div class="header__top__right__auth">
                                 <a href="{{route('register')}}"><i class="fa fa-user"></i>Register</a>
@@ -232,13 +232,10 @@
                 <div class="col-lg-9">
                     <div class="hero__search">
                         <div class="hero__search__form">
-                            <form action="#">
-                                <div class="hero__search__categories">
-                                    All Products
-                                    <span class="arrow_carrot-down"></span>
-                                </div>
-                                <input type="text" placeholder="What do you need?">
-                                <button type="submit" class="site-btn">SEARCH</button>
+                            <form action="{{ url('my-seach')}}" method="get" id="formSearch">
+                                <input type="text" name="key" id="key" placeholder="Find products and foods you want?"
+                                    value="{{ request()->input('key') }}">
+                                <button type="submit" class="site-btn search" value="Search">SEARCH</button>
                             </form>
                         </div>
                         <div class="hero__search__phone">
@@ -328,6 +325,7 @@
     <script src="{{asset('js/owl.carousel.min.js')}}"></script>
     <script src="{{asset('js/main.js')}}"></script>
     <script src="{{asset('js/ajax.js')}}"></script>
+    <script src="{{asset('js/food-app.js')}}"></script>
 </body>
 
 </html>
