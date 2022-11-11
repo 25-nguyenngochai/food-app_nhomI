@@ -23,9 +23,9 @@ class HomeController extends Controller
     
     // Page Index:
     function index(Request $request){
-        //Category:
+        // Category:
         $allCategory = Category::all();
-        //Product:
+        // Product:
         if(isset($request->category_id)){
             $allProduct = Product::where('category_id',$request->category_id)->orderBy('id', 'desc')
             ->paginate(16)->appends(['category_id' => $request->category_id]);
@@ -65,12 +65,18 @@ class HomeController extends Controller
     }
     
     // Page Shop-Gird:
-    function shopGrid()
+    function shopGrid(Request $request)
     {
-        //Category:
+        // Category:
         $allCategory = Category::all();
+        // Product:
+        $allProduct = Product::where('category_id',$request->category_id)->orderBy('id', 'desc')
+            ->paginate(12)->appends(['category_id' => $request->category_id]);
+        $countAllProduct = Product::where('category_id',$request->category_id)->count();
         return view('home.shop-grid',[
             'allCategory' => $allCategory,
+            'allProduct' => $allProduct,
+            'countAllProduct' => $countAllProduct,
         ]);
     }
 
