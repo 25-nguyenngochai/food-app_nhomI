@@ -7,11 +7,16 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="breadcrumb__text">
-                    <h2>Vegetable’s Package</h2>
+                    @foreach($productId as $value)
+                    <h2>{{$value->name}}</h2>
+                    @endforeach
                     <div class="breadcrumb__option">
                         <a href="{{url('index')}}">Home</a>
-                        <a href="./index.html">Vegetables</a>
-                        <span>Vegetable’s Package</span>
+                        <a
+                            href="{{url('shop-grid')}}?category_id={{$product_Category->id}}">{{$product_Category->name}}</a>
+                        @foreach($productId as $value)
+                        <span>{{$value->name}}</span>
+                        @endforeach
                     </div>
                 </div>
             </div>
@@ -24,17 +29,17 @@
 <section class="product-details spad">
     <div class="container">
         <div class="row">
+            @foreach($productId as $value)
             <div class="col-lg-6 col-md-6">
                 <div class="product__details__pic">
                     <div class="product__details__pic__item">
-                        <img class="product__details__pic__item--large" src="img/product/details/product-details-1.jpg"
-                            alt="">
+                        <img class="product__details__pic__item--large" src="{{asset('images/'.$value->image)}}" alt="">
                     </div>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6">
                 <div class="product__details__text">
-                    <h3>Vetgetable’s Package</h3>
+                    <h3>{{$value->name}}</h3>
                     <div class="product__details__rating">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -43,23 +48,13 @@
                         <i class="fa fa-star-half-o"></i>
                         <span>(18 reviews)</span>
                     </div>
-                    <div class="product__details__price">$50.00</div>
-                    <p>Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a. Vestibulum ac diam sit amet quam
-                        vehicula elementum sed sit amet dui. Sed porttitor lectus nibh. Vestibulum ac diam sit amet
-                        quam vehicula elementum sed sit amet dui. Proin eget tortor risus.</p>
-                    <div class="product__details__quantity">
-                        <div class="quantity">
-                            <div class="pro-qty">
-                                <input type="text" value="1">
-                            </div>
-                        </div>
-                    </div>
+                    <div class="product__details__price">{{number_format($value->price)}} VND</div>
+                    <p>{{substr($value->description,0,250)}}.</p>
                     <a href="#" class="primary-btn">ADD TO CARD</a>
                     <a href="#" class="heart-icon"><span class="icon_heart_alt"></span></a>
                     <ul>
                         <li><b>Availability</b> <span>In Stock</span></li>
                         <li><b>Shipping</b> <span>01 day shipping. <samp>Free pickup today</samp></span></li>
-                        <li><b>Weight</b> <span>0.5 kg</span></li>
                         <li><b>Share on</b>
                             <div class="share">
                                 <a href="#"><i class="fa fa-facebook"></i></a>
@@ -71,6 +66,7 @@
                     </ul>
                 </div>
             </div>
+            @endforeach
             <div class="col-lg-12">
                 <div class="product__details__tab">
                     <ul class="nav nav-tabs" role="tablist">
@@ -80,31 +76,16 @@
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" data-toggle="tab" href="#tabs-3" role="tab"
-                                aria-selected="false">Reviews <span>(1)</span></a>
+                                aria-selected="false">Reviews <span>(0)</span></a>
                         </li>
                     </ul>
                     <div class="tab-content">
                         <div class="tab-pane active" id="tabs-1" role="tabpanel">
                             <div class="product__details__tab__desc">
                                 <h6>Products Infomation</h6>
-                                <p>Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui.
-                                    Pellentesque in ipsum id orci porta dapibus. Proin eget tortor risus. Vivamus
-                                    suscipit tortor eget felis porttitor volutpat. Vestibulum ac diam sit amet quam
-                                    vehicula elementum sed sit amet dui. Donec rutrum congue leo eget malesuada.
-                                    Vivamus suscipit tortor eget felis porttitor volutpat. Curabitur arcu erat,
-                                    accumsan id imperdiet et, porttitor at sem. Praesent sapien massa, convallis a
-                                    pellentesque nec, egestas non nisi. Vestibulum ac diam sit amet quam vehicula
-                                    elementum sed sit amet dui. Vestibulum ante ipsum primis in faucibus orci luctus
-                                    et ultrices posuere cubilia Curae; Donec velit neque, auctor sit amet aliquam
-                                    vel, ullamcorper sit amet ligula. Proin eget tortor risus.</p>
-                                <p>Praesent sapien massa, convallis a pellentesque nec, egestas non nisi. Lorem
-                                    ipsum dolor sit amet, consectetur adipiscing elit. Mauris blandit aliquet
-                                    elit, eget tincidunt nibh pulvinar a. Cras ultricies ligula sed magna dictum
-                                    porta. Cras ultricies ligula sed magna dictum porta. Sed porttitor lectus
-                                    nibh. Mauris blandit aliquet elit, eget tincidunt nibh pulvinar a.
-                                    Vestibulum ac diam sit amet quam vehicula elementum sed sit amet dui. Sed
-                                    porttitor lectus nibh. Vestibulum ac diam sit amet quam vehicula elementum
-                                    sed sit amet dui. Proin eget tortor risus.</p>
+                                @foreach($productId as $value)
+                                <p>{{$value->description}}.</p>
+                                @endforeach
                             </div>
                         </div>
                         <div class="tab-pane" id="tabs-3" role="tabpanel">
@@ -141,10 +122,14 @@
                 </div>
             </div>
         </div>
+        @if($countRelated >= 5)
         <div class="categories__slider owl-carousel">
+            @foreach($productRelated as $value)
             <div class="col-lg-3">
                 <div class="product__discount__item">
-                    <div class="product__discount__item__pic set-bg" data-setbg="img/product/discount/pd-1.jpg">
+                    <div class="product__discount__item__pic set-bg" data-setbg="{{asset('images/'.$value->image)}}"
+                        onclick="location.href='{{url('shop-details')}}?product_id={{$value->id}}';"
+                        style="cursor: pointer;">
                         <ul class="product__item__pic__hover">
                             <li><a href="#"><i class="fa fa-heart"></i></a></li>
                             <li><a href="#"><i class="fa fa-retweet"></i></a></li>
@@ -152,117 +137,35 @@
                         </ul>
                     </div>
                     <div class="product__discount__item__text">
-                        <h5><a href="#">Raisin’n’nuts</a></h5>
-                        <div class="product__item__price">$30.00</div>
+                        <h5><a href="{{url('shop-details')}}?product_id={{$value->id}}">{{$value->name}}</a></h5>
+                        <div class="product__item__price">{{number_format($value->price)}} VND</div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-3">
-                <div class="product__discount__item">
-                    <div class="product__discount__item__pic set-bg" data-setbg="img/product/discount/pd-2.jpg">
-                        <ul class="product__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__discount__item__text">
-                        <h5><a href="#">Vegetables’package</a></h5>
-                        <div class="product__item__price">$30.00</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="product__discount__item">
-                    <div class="product__discount__item__pic set-bg" data-setbg="img/product/discount/pd-1.jpg">
-                        <ul class="product__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__discount__item__text">
-                        <h5><a href="#">Raisin’n’nuts</a></h5>
-                        <div class="product__item__price">$30.00</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="product__discount__item">
-                    <div class="product__discount__item__pic set-bg" data-setbg="img/product/discount/pd-2.jpg">
-                        <ul class="product__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__discount__item__text">
-                        <h5><a href="#">Vegetables’package</a></h5>
-                        <div class="product__item__price">$30.00</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="product__discount__item">
-                    <div class="product__discount__item__pic set-bg" data-setbg="img/product/discount/pd-1.jpg">
-                        <ul class="product__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__discount__item__text">
-                        <h5><a href="#">Raisin’n’nuts</a></h5>
-                        <div class="product__item__price">$30.00</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="product__discount__item">
-                    <div class="product__discount__item__pic set-bg" data-setbg="img/product/discount/pd-2.jpg">
-                        <ul class="product__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__discount__item__text">
-                        <h5><a href="#">Vegetables’package</a></h5>
-                        <div class="product__item__price">$30.00</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="product__discount__item">
-                    <div class="product__discount__item__pic set-bg" data-setbg="img/product/discount/pd-1.jpg">
-                        <ul class="product__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__discount__item__text">
-                        <h5><a href="#">Raisin’n’nuts</a></h5>
-                        <div class="product__item__price">$30.00</div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-3">
-                <div class="product__discount__item">
-                    <div class="product__discount__item__pic set-bg" data-setbg="img/product/discount/pd-2.jpg">
-                        <ul class="product__item__pic__hover">
-                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
-                            <li><a href="#"><i class="fa fa-retweet"></i></a></li>
-                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
-                        </ul>
-                    </div>
-                    <div class="product__discount__item__text">
-                        <h5><a href="#">Vegetables’package</a></h5>
-                        <div class="product__item__price">$30.00</div>
-                    </div>
-                </div>
-            </div>
+            @endforeach
         </div>
+        @else
+        <div class="row">
+            @foreach($productRelated as $value)
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="product__item">
+                    <div class="product__item__pic set-bg" data-setbg="{{asset('images/'.$value->image)}}"
+                        onclick="location.href='{{url('shop-details')}}?product_id={{$value->id}}';"
+                        style="cursor: pointer;">
+                        <ul class="product__item__pic__hover">
+                            <li><a href="#"><i class="fa fa-heart"></i></a></li>
+                            <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                        </ul>
+                    </div>
+                    <div class="product__item__text">
+                        <h6><a href="{{url('shop-details')}}?product_id={{$value->id}}">{{$value->name}}</a></h6>
+                        <h5>{{number_format($value->price)}} VND</h5>
+                    </div>
+                </div>
+            </div>
+            @endforeach
+        </div>
+        @endif
     </div>
 </section>
 

@@ -33,7 +33,6 @@ class HomeController extends Controller
         else{
             $allProduct = Product::orderBy('id', 'desc')->paginate(16);
         }
-
         return view('home.index',[ 
             'allCategory' => $allCategory,
             'allProduct' => $allProduct,
@@ -81,12 +80,26 @@ class HomeController extends Controller
     }
 
     // Page Shop-Details:
-    function shopDetails()
+    function shopDetails(Request $request)
     {
         //Category:
         $allCategory = Category::all();
+        //Product:
+        $productId = Product::where('id',$request->product_id)->get();
+        foreach ($productId as $key => $value) {
+            $category_id = $value->category_id;
+            $price = $value->price;
+        }
+        $productRelated = Product::where('category_id', $category_id)->where('price', $price)->get();
+        $countRelated = Product::where('category_id', $category_id)->where('price', $price)->count();
+        $product_Category = DB::table('products')->join('categories', 'products.category_id', '=', 'categories.id')
+        ->where('products.id', $request->product_id)->first();
         return view('home.shop-details',[
             'allCategory' => $allCategory,
+            'productId' => $productId,
+            'productRelated' => $productRelated,
+            'countRelated' => $countRelated,
+            'product_Category' => $product_Category,
         ]);
     }
 

@@ -39,7 +39,9 @@
                         <tbody>
                             @foreach($product_cart as $value)
                             <tr>
-                                <td class="shoping__cart__item" onclick="location.href='#';" style="cursor: pointer;">
+                                <td class="shoping__cart__item"
+                                    onclick="location.href='{{url('shop-details')}}?product_id={{$value['item']['id']}}';"
+                                    style="cursor: pointer;">
                                     <img src="{{asset('images/'.$value['item']['image'])}}" style="width: 100px;"
                                         alt="">
                                     <h5>{{$value['item']['name']}}</h5>
