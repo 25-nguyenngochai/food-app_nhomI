@@ -190,7 +190,8 @@
             <div class="col-lg-3 col-md-4 col-sm-6 mix oranges fresh-meat">
                 <div class="featured__item">
                     <div class="featured__item__pic set-bg" data-setbg="{{asset('images/'.$value->image)}}"
-                        onclick="location.href='#';" style="cursor: pointer;">
+                        onclick="location.href='{{url('shop-details')}}?product_id={{$value->id}}';"
+                        style="cursor: pointer;">
                         <ul class="featured__item__pic__hover">
                             @php $countWishlist = 0 @endphp
                             @if(Auth::check())
@@ -213,7 +214,7 @@
                         </ul>
                     </div>
                     <div class="featured__item__text">
-                        <h6><a href="#">{{$value->name}}</a></h6>
+                        <h6><a href="{{url('shop-details')}}?product_id={{$value->id}}">{{$value->name}}</a></h6>
                         <h5>{{number_format($value->price)}} VND</h5>
                     </div>
                 </div>

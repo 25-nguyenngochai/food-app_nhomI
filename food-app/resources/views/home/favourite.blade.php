@@ -37,7 +37,9 @@
                         <tbody>
                             @foreach($allWishlist as $value)
                             <tr>
-                                <td class="shoping__cart__item" onclick="location.href='#';" style="cursor: pointer;">
+                                <td class="shoping__cart__item"
+                                    onclick="location.href='{{url('shop-details')}}?product_id={{$value->id}}';"
+                                    style="cursor: pointer;">
                                     <img src="{{asset('images/'.$value->image)}}" style="width: 100px;" alt="">
                                     <h5>{{$value->name}}</h5>
                                 </td>
