@@ -16,13 +16,18 @@ use App\Http\Controllers\AdminController;
 |
 */
 Route::group(['middleware' => ['CheckLogin']], function () {
-    Route::get('/edit-category',[AdminController::class,'editCategory']);
-    Route::get('/add-category',[AdminController::class,'fileAddCategory']);
-    Route::get('/table-category',[AdminController::class,'tableCategory']);
+    Route::get('delete-category/{id}',[AdminController::class,'getDelCategory'])->name('get_delete-category');
+    Route::post('edit-category/{id}',[AdminController::class,'postEditCategory'])->name('post_edit-category');
+    Route::get('edit-category/{id}',[AdminController::class,'getEditCategory'])->name('get_edit-category');   
+    Route::post('add-category',[AdminController::class,'postAddCategory'])->name('add_catalog');
+    Route::get('add-category',[AdminController::class,'getAddCategory']);
+    Route::get('table-category',[AdminController::class,'tableCategory']);
+    // Table Category:
     Route::get('/edit-product',[AdminController::class,'editProduct']);
     Route::get('/add-product',[AdminController::class,'addProduct']);
     Route::get('/table-product',[AdminController::class,'tableProduct']);
     Route::get('/admin-index',[AdminController::class,'index']);
+    // Table Product:
 });
 Route::get('contact',[HomeController::class,'contact']);
 Route::get('checkout',[HomeController::class,'checkout']);

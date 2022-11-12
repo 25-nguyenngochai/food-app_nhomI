@@ -40,3 +40,26 @@ $(document).ready(function(){
         });
     });
 });
+
+$('#form-add_category').submit(function(e){
+    e.preventDefault();
+    var url = $(this).attr('data-url');
+    $.ajax({
+        type: "POST",
+        url: url,
+        data: {
+            name: $('#name').value(),
+        },
+        success:function(response){
+            if (response.action == 'add') {
+                $('#notifDiv').fadeIn();
+                $('#notifDiv').css('background', '#7fad39');
+                $('#notifDiv').text(response.message);
+                setTimeout(() => {
+                    $('#notifDiv').fadeOut();
+                }, 3000);
+            }
+            window.location.reload();
+        },
+    });
+});
