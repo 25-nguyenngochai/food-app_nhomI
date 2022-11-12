@@ -36,7 +36,10 @@ class AdminController extends Controller
     }
 
     function tableCategory(){
-        return view('admin.category.table-category');
+        $table_category = Category::orderBy('id', 'desc')->paginate(10)->appends(['catalog'=>'catalog']);        
+        return view('admin.category.table-category', [
+            'table_category' => $table_category
+        ]);
     }
 
     // Add Category:
@@ -56,34 +59,4 @@ class AdminController extends Controller
     function editCategory(){
         return view('admin.category.edit-category');
     }
-    // Page Register:
-
-    // function register(Request $request)
-    // {
-    //     $request->validate([
-    //         'name' => 'required',
-    //         'email' => 'required|unique:users',
-    //         'phone' => 'required',
-    //         'address' => 'required',
-    //         'password' => 'required',
-    //         'confirm-password' => 'required|same:password',
-	// 	]);
-    //     $user = new User();
-    //     $user->name = $request->name;
-    //     $user->email = $request->email;
-    //     $user->phone = $request->phone;
-    //     $user->address = $request->address;
-    //     $user->password = bcrypt($request->password);
-    //     if ($request->hasFile('upload_image')) {
-    //         $file = $request->upload_image;
-    //         $file_name = $file->getClientOriginalName();
-    //         $file-> move(public_path('images'), $file_name);
-    //         $request->merge(['image' => $file_name]);
-    //         $user->image = $file_name;
-    //     } else {
-    //         $user->image = $request->value_image;
-    //     }
-    //     $user->save();
-    //     return redirect('home.login-register.login');
-    // }
 }
