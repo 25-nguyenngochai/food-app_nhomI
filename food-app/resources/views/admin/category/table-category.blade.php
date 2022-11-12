@@ -32,13 +32,19 @@
                                                 class="mdi mdi-database-plus"></i> Add</a> </th>
                                 </tr>
                             </thead>
+                            @if($message = Session::get('success'))
+                            <div class="alert alert-success" id="alert">
+                                <p>{{$message}}</p>
+                            </div>
+                            @endif
                             <tbody>
                                 @foreach($table_category as $value)
 
                                 <tr>
                                     <td> {{$value->id}} </td>
                                     <td> {{$value->name}} </td>
-                                    <td> <a href="{{ url('/edit-category')}}" class="btn btn-primary btn-xs"><i
+                                    <td> <a href="{{route('get_edit-category', $value->id)}}"
+                                            class="btn btn-primary btn-xs"><i
                                                 class="mdi mdi-pencil-box-outline"></i>Edit</a>
                                         <a href="" class="btn btn-primary btn-xs"><i
                                                 class="mdi mdi-delete"></i>Delete</a>
@@ -53,5 +59,6 @@
             </div>
         </div>
     </div>
+</div>
 
-    @endsection
+@endsection
