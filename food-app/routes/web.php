@@ -16,10 +16,18 @@ use App\Http\Controllers\AdminController;
 |
 */
 Route::group(['middleware' => ['CheckLogin']], function () {
+<<<<<<< HEAD
     Route::get('/edit-category',[AdminController::class,'editCategory']);
     Route::post('add-category',[AdminController::class,'postAddCategory'])->name('add_catalog');
     Route::get('add-category',[AdminController::class,'getAddCategory']);
     Route::get('/table-category',[AdminController::class,'tableCategory']);
+=======
+    Route::post('edit-category/{id}',[AdminController::class,'postEditCategory'])->name('post_edit-category');
+    Route::get('edit-category/{id}',[AdminController::class,'getEditCategory'])->name('get_edit-category');   
+    Route::post('add-category',[AdminController::class,'postAddCategory'])->name('add_catalog');
+    Route::get('add-category',[AdminController::class,'getAddCategory']);
+    Route::get('table-category',[AdminController::class,'tableCategory']);
+>>>>>>> tho_editCategory
     Route::get('/edit-product',[AdminController::class,'editProduct']);
     Route::get('/add-product',[AdminController::class,'addProduct']);
     Route::get('/table-product',[AdminController::class,'tableProduct']);

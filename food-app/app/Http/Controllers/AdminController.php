@@ -46,6 +46,19 @@ class AdminController extends Controller
         function getAddCategory(){
             return view('admin.category.add-category');
         }
+<<<<<<< HEAD
+
+        function postAddCategory(Request $request)
+        {
+            $request->validate([
+                'name' => 'required'
+            ]);
+            $add_category = $request->all();
+            Category::create($add_category);
+            return redirect('table-category')->with('success', 'Category created successfully.');
+        }
+=======
+>>>>>>> tho_editCategory
 
         function postAddCategory(Request $request)
         {
@@ -57,7 +70,21 @@ class AdminController extends Controller
             return redirect('table-category')->with('success', 'Category created successfully.');
         }
 
-    function editCategory(){
-        return view('admin.category.edit-category');
-    }
+        // Edit Category:
+        function getEditCategory($id)
+        {
+            $allCategory = Category::find($id);
+            return view('admin.category.edit-category', compact('allCategory'));
+        }
+
+        function postEditCategory(Request $request, $id)
+        {
+            $data = $request->validate([
+                'name' => 'required',
+            ]);
+            $category = Category::find($id);
+            $category->name = $data['name'];
+            $category->save();
+            return redirect('table-category')->with('success', 'Category edit successfully.');
+        }
 }
