@@ -8655,6 +8655,9 @@ fieldset:disabled .btn {
   color           : #0b5348;
   background-color: #d1f5f0;
   border-color    : #bbf1e9;
+  position        : fixed;
+  padding-top     : 13px;
+  padding-bottom  : 0px;
 }
 
 .alert-success .alert-link {
