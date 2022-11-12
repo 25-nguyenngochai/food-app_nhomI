@@ -32,6 +32,11 @@
                                                 class="mdi mdi-database-plus"></i> Add</a> </th>
                                 </tr>
                             </thead>
+                            @if($message = Session::get('success'))
+                            <div class="alert alert-success" id="alert">
+                                <p>{{$message}}</p>
+                            </div>
+                            @endif
                             <tbody>
                                 @foreach($table_category as $value)
 

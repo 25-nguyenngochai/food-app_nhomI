@@ -34,7 +34,7 @@ class AdminController extends Controller
     function editProduct(){
         return view('admin.product.edit-product');
     }
-
+// Table Category:
     function tableCategory(){
         $table_category = Category::orderBy('id', 'desc')->paginate(10)->appends(['catalog'=>'catalog']);        
         return view('admin.category.table-category', [
@@ -42,19 +42,20 @@ class AdminController extends Controller
         ]);
     }
 
-    // Add Category:
-    function fileAddCategory(){
-        return view('admin.category.add-category');
-    }
-    function addCategory(Request $request)
-    {
-        $request->validate([
-            'name' => 'required'
-        ]);
-        $input = $request->all();
-        Category::create($input);
-        return redirect('table-category')->with('success', 'Category created successfully.');
-    }
+        // Add Category:
+        function getAddCategory(){
+            return view('admin.category.add-category');
+        }
+
+        function postAddCategory(Request $request)
+        {
+            $request->validate([
+                'name' => 'required'
+            ]);
+            $add_category = $request->all();
+            Category::create($add_category);
+            return redirect('table-category')->with('success', 'Category created successfully.');
+        }
 
     function editCategory(){
         return view('admin.category.edit-category');
