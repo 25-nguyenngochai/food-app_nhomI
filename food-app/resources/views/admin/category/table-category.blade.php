@@ -46,8 +46,9 @@
                                     <td> <a href="{{route('get_edit-category', $value->id)}}"
                                             class="btn btn-primary btn-xs"><i
                                                 class="mdi mdi-pencil-box-outline"></i>Edit</a>
-                                        <a href="" class="btn btn-primary btn-xs"><i
-                                                class="mdi mdi-delete"></i>Delete</a>
+                                        <a onclick="return confirm('Are you sure you want to delete?')"
+                                            href="{{route('get_delete-category', $value->id)}}"
+                                            class="btn btn-primary btn-xs"><i class="mdi mdi-delete"></i>Delete</a>
                                     </td>
                                 </tr>
                                 @endforeach

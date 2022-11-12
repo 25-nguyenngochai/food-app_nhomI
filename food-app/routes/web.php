@@ -15,28 +15,27 @@ use App\Http\Controllers\AdminController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+// Page Admin:
 Route::group(['middleware' => ['CheckLogin']], function () {
-<<<<<<< HEAD
-    Route::get('/edit-category',[AdminController::class,'editCategory']);
-    Route::post('add-category',[AdminController::class,'postAddCategory'])->name('add_catalog');
-    Route::get('add-category',[AdminController::class,'getAddCategory']);
-    Route::get('/table-category',[AdminController::class,'tableCategory']);
-=======
+    // Table Category:
+    Route::get('delete-category/{id}',[AdminController::class,'getDelCategory'])->name('get_delete-category');
     Route::post('edit-category/{id}',[AdminController::class,'postEditCategory'])->name('post_edit-category');
     Route::get('edit-category/{id}',[AdminController::class,'getEditCategory'])->name('get_edit-category');   
     Route::post('add-category',[AdminController::class,'postAddCategory'])->name('add_catalog');
     Route::get('add-category',[AdminController::class,'getAddCategory']);
     Route::get('table-category',[AdminController::class,'tableCategory']);
->>>>>>> tho_editCategory
+    // Table Product:
     Route::get('/edit-product',[AdminController::class,'editProduct']);
     Route::get('/add-product',[AdminController::class,'addProduct']);
-    Route::get('/table-product',[AdminController::class,'tableProduct']);
+    Route::get('table-product',[AdminController::class,'tableProduct']);
+    // Page Index:
     Route::get('/admin-index',[AdminController::class,'index']);
 });
-Route::post('checkcart',[HomeController::class,'PostCheckout'])->name('checkcart');
+
+// Page Home:
 Route::get('contact',[HomeController::class,'contact']);
 Route::get('checkout',[HomeController::class,'checkout']);
-Route::get('thanks',[HomeController::class,'thanks']);
 Route::post('update_wishlist',[HomeController::class,'updateWishlist']);
 Route::get('favourite',[HomeController::class,'favourite']);
 Route::get('delcartone/{id}',[HomeController::class,'getDelCartOne'])->name('delcartone');

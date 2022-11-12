@@ -36,11 +36,6 @@
             </div>
         </div>
     </div>
-<<<<<<< HEAD
-
-    @endsection
-=======
 </div>
 
 @endsection
->>>>>>> tho_editCategory
