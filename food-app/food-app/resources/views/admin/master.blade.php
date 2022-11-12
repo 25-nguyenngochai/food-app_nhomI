@@ -235,6 +235,7 @@
     <script src="{{asset('assets/js/misc.js')}}"></script>
     <script src="{{asset('assets/js/dashboard.js')}}"></script>
     <script src="{{asset('assets/js/todolist.js')}}"></script>
+    <script src="{{asset('js/food-app.js')}}"></script>
 </body>
 
 </html>
