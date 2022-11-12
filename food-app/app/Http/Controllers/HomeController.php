@@ -2,15 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bill;
+use App\Models\bill_detail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
 use App\Models\Cart;
+use App\Models\Payment;
 use App\Models\Product;
 use App\Models\Wishlist;
-
+use Mailer;
 
 class HomeController extends Controller
 {
@@ -79,6 +82,14 @@ class HomeController extends Controller
         ]);
     }
 
+    function thanks()
+    {
+        $allCategory = Category::all();
+        return view('home.thanks', [
+            'allCategory' => $allCategory,
+        ]);
+    }
+    
     // Page Shop-Details:
     function shopDetails(Request $request)
     {
@@ -187,9 +198,65 @@ class HomeController extends Controller
     {
         //Category:
         $allCategory = Category::all();
-        return view('home.checkout',[
+        $Payments = Payment::all();
+        //
+        return view('home.checkout', [
             'allCategory' => $allCategory,
+            'Payments' => $Payments,
         ]);
+    }
+    function PostCheckout(Request $request)
+    {
+        require '../resources/mail/sendMail.php';
+
+        if (Auth::check()) {
+            $user = Auth::user()->id;
+        }
+        $KhachHang = Auth::user()->name;
+        $cart = Session::get('cart');
+
+        $bill = new Bill;
+        $bill->data_order = date('Y-m-d');
+        $bill->totalQty = $cart->totalQty;
+        $bill->totalPrice = $cart->totalPrice;
+        $bill->payment_id = $request->pay;
+        $bill->user_id = $user;
+        $bill->save();
+        foreach ($cart->items as $key => $value) {
+            $bill_detail = new bill_detail;
+            $bill_detail->bill_id = $bill->id;
+            $bill_detail->product_id = $key;
+            $bill_detail->quantity = $value['qty'];
+            $bill_detail->price = $value['price'] / $value['qty'];
+            $bill_detail->save();
+        }
+
+        $tenshop = 'Website OGANI';
+        $tieude = "<p style='font-size: 20px;font-weight: bold;text-align: center;'>Cảm ơn <span style='color:red'>" . $KhachHang . "</span> đã mua hàng bên mình</p>";
+        $noidung = "";
+        foreach ($cart->items as $key => $value) {
+            $noidung .=
+                "<tr>
+            <td>" . $key . "</td>
+            <td>" . $value['item']['name'] . "</td>
+            <td>" . $value['qty'] . "</td>
+            <td>" . number_format($value['price'] / $value['qty']) . " VND</td>
+        </tr>";
+        }
+
+        $titleShop = '
+         <div style="background-color: rgb(135,206,235);">
+            <h1 style="font-family: auto;text-align: center;height: 30px;padding: 10px">Website OGANI</h1>
+        </div>';
+        $foodterShop = '<div style="background-color: rgb(135,206,235);height: 30px;padding: 10px;margin-top: 20px;"></div>';
+        $total = $cart->totalPrice;
+        $maildathang = Auth::user()->email;
+        $tenKhachHang = Auth::user()->name;
+        $mail = new Mailer();
+        $mail->dathangmail($tenshop, $tieude, $noidung, $total, $maildathang, $tenKhachHang, $titleShop, $foodterShop);
+
+        Session::forget('cart');
+        return redirect('thanks')->with('thongbao', 'Đặt hàng thành công');
     }
     
     // Page Contact:
