@@ -24,8 +24,10 @@ Route::group(['middleware' => ['CheckLogin']], function () {
     Route::get('/table-product',[AdminController::class,'tableProduct']);
     Route::get('/admin-index',[AdminController::class,'index']);
 });
+Route::post('checkcart',[HomeController::class,'PostCheckout'])->name('checkcart');
 Route::get('contact',[HomeController::class,'contact']);
 Route::get('checkout',[HomeController::class,'checkout']);
+Route::get('thanks',[HomeController::class,'thanks']);
 Route::post('update_wishlist',[HomeController::class,'updateWishlist']);
 Route::get('favourite',[HomeController::class,'favourite']);
 Route::get('delcartone/{id}',[HomeController::class,'getDelCartOne'])->name('delcartone');
