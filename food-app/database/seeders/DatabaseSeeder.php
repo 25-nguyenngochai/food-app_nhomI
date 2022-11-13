@@ -29,7 +29,14 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Dried'
             ]
         ]);
-
+        \DB::table('payments')->insert([
+            [
+                'name' => 'Thanh Toán Khi Nhận Hàng'
+            ],
+            [
+                'name' => 'Chuyển khoản ngân hàng'
+            ],
+        ]);
         //
 
         \DB::table('products')->insert([
