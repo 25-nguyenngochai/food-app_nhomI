@@ -30,7 +30,7 @@ Route::group(['middleware' => ['CheckLogin']], function () {
     Route::get('/add-product',[AdminController::class,'addProduct']);
     Route::get('table-product',[AdminController::class,'tableProduct']);
     // Page Index:
-    Route::get('/admin-index',[AdminController::class,'index']);
+    Route::get('admin-index',[AdminController::class,'index']);
 });
 
 // Page Home:
