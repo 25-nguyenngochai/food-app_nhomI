@@ -80,9 +80,47 @@ class AdminController extends Controller
             return redirect('table-product')->with('success', 'Product created successfully.');
         }
 
-    function editProduct(){
-        return view('admin.product.edit-product');
-    }
+        // Edit Product:
+        function getEditProduct($id){
+            $allProduct = Product::find($id);
+            $allCategory = Category::orderBy('id', 'desc')->get();
+            return view('admin.product.edit-product', compact('allProduct', 'allCategory'));
+        }
+
+        function postEditProduct(Request $request, $id)
+        {
+            $data = $request->validate([
+                'name' => 'required',
+                'price' => 'required',
+                'description' => 'required',
+            ]);
+            $product = Product::find($id);
+            
+            $product->name = $data['name'];
+            $product->price = $data['price'];
+            if ($request->hasFile('upload_image')) {
+                //
+                $delImage = 'images/'.$product->image;
+                if (file_exists($delImage)) {
+                    unlink($delImage);
+                }
+                //
+                $file = $request->upload_image;
+                $file_name = $file->getClientOriginalName();
+                $file-> move(public_path('images'), $file_name);
+                $request->merge(['image' => $file_name]);
+                $product->image = $file_name;   
+            }   else {
+                $product->image = $request->value_image;
+            }         
+            $product->category_id = $request->category_id;
+            $product->description = $data['description'];
+            $product->date_added = $request->date_added;
+            $product->expiration_date = $request->expiration_date;
+            $product->save();
+
+            return redirect('table-product')->with('success', 'Product edit successfully.');
+        }
 
     // Table Category:
     function tableCategory(){
