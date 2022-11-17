@@ -36,10 +36,49 @@ class AdminController extends Controller
             'table_product' => $table_product,
         ]);
     }
+        // Add Product:
+        function getAddProduct(){
+            $allCategory = Category::orderBy('id', 'desc')->get();
+            return view('admin.product.add-product', [
+                'allCategory' => $allCategory,
+            ]);
+        }
 
-    function addProduct(){
-        return view('admin.product.add-product');
-    }
+        function postAddProduct(Request $request)
+        {
+            $request->validate([
+                'name' => 'required',
+                'price' => 'required',
+                'upload_image' => 'required',
+                'category_id' => 'required',
+                'description' => 'required',
+                'date_added' => 'required',
+                'expiration_date' => 'required',
+            ]);
+    
+           //Lưu hình thẻ khi có file hình
+           if ($request->hasFile('upload_image')) {
+                $request->validate( 
+                    [
+                        'upload_image' => 'mimes:jpg,jpeg,png,gif|max:2048',
+                    ],			
+                    [
+                        'upload_image.mimes' => 'Required image file extension .jpg .jpeg .png .gif',
+                        'upload_image.max' => 'Image size limit no more than 2M',
+                    ]
+                );
+        
+                $file = $request->upload_image;
+                $file_name = $file->getClientOriginalName();
+                $file-> move(public_path('images'), $file_name);
+                $request->merge(['image' => $file_name]);
+            }
+    
+            $input = $request->all();
+            Product::create($input);
+            
+            return redirect('table-product')->with('success', 'Product created successfully.');
+        }
 
     function editProduct(){
         return view('admin.product.edit-product');

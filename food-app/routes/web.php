@@ -27,7 +27,8 @@ Route::group(['middleware' => ['CheckLogin']], function () {
     Route::get('table-category',[AdminController::class,'tableCategory']);
     // Table Product:
     Route::get('/edit-product',[AdminController::class,'editProduct']);
-    Route::get('/add-product',[AdminController::class,'addProduct']);
+    Route::post('add-product',[AdminController::class,'postAddProduct'])->name('add_product');
+    Route::get('add-product',[AdminController::class,'getAddProduct']);
     Route::get('table-product',[AdminController::class,'tableProduct'])->name('seach-product');
     // Page Index:
     Route::get('admin-index',[AdminController::class,'index']);

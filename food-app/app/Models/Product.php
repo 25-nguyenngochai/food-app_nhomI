@@ -19,6 +19,6 @@ class Product extends Model
     }
 
     protected $fillable = [
-        'name', 'price', 'image', 'catalog_id', 'description', 'created', 'expiry', 
+        'name', 'price', 'image', 'category_id', 'description', 'date_added', 'expiration_date', 
     ];
 }
