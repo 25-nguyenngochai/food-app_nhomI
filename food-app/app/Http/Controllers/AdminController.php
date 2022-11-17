@@ -122,6 +122,23 @@ class AdminController extends Controller
             return redirect('table-product')->with('success', 'Product edit successfully.');
         }
 
+        // Delete Product:
+        function getDelProduct($id)
+        {
+            $checkProduct = Product::find($id);
+
+            if ($checkProduct == null) {
+                return redirect()->back()->with('success', 'Product has been deleted or does not exist.');
+            } else {
+                $delImage = 'images/'.$checkProduct->image;
+                if (file_exists($delImage)) {
+                    unlink($delImage);
+                }
+                $checkProduct->delete();
+                return redirect()->back()->with('success', 'Product delete successfully.');
+            }
+        }
+
     // Table Category:
     function tableCategory(){
         $table_category = Category::orderBy('id', 'desc')->paginate(10)->appends(['category'=>'category']);        
@@ -176,7 +193,7 @@ class AdminController extends Controller
                 if ($checkCategory == null) {
                     return redirect()->back()->with('success', 'Category has been deleted or does not exist.');
                 } else {
-                    Category::find($id)->delete();
+                    $checkCategory->delete();
                     return redirect()->back()->with('success', 'Category delete successfully.');
                 }
             }
