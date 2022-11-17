@@ -28,9 +28,9 @@ Route::group(['middleware' => ['CheckLogin']], function () {
     // Table Product:
     Route::get('/edit-product',[AdminController::class,'editProduct']);
     Route::get('/add-product',[AdminController::class,'addProduct']);
-    Route::get('table-product',[AdminController::class,'tableProduct']);
+    Route::get('table-product',[AdminController::class,'tableProduct'])->name('seach-product');
     // Page Index:
-    Route::get('/admin-index',[AdminController::class,'index']);
+    Route::get('admin-index',[AdminController::class,'index']);
 });
 
 // Page Home:
