@@ -30,7 +30,7 @@
                                     <th> # </th>
                                     <th> Image </th>
                                     <th> Name </th>
-                                    <th> <a href="" class="btn btn-danger btn-xs btn-theme02"><i
+                                    <th> <a href="{{url('add-product')}}" class="btn btn-danger btn-xs btn-theme02"><i
                                                 class="mdi mdi-database-plus"></i> Add</a> </th>
                                 </tr>
                             </thead>
