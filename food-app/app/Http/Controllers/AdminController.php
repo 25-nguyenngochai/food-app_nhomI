@@ -25,8 +25,13 @@ class AdminController extends Controller
     }
 
     // Table Product:
-    function tableProduct(){
-        $table_product = Product::orderBy('id', 'desc')->paginate(20)->appends(['product'=>'product']);
+    function tableProduct(Request $request){
+        if(isset($request->key)){
+            $table_product = Product::where('name', 'like', '%'.$request->key.'%')->orderBy('id', 'desc')
+            ->paginate(10)->appends(['key' => $request->key]);
+        } else{
+            $table_product = Product::orderBy('id', 'desc')->paginate(20);
+        }
         return view('admin.product.table-product', [
             'table_product' => $table_product,
         ]);
@@ -90,8 +95,13 @@ class AdminController extends Controller
             if ($category){
                 return redirect()->back()->with('success', 'Cannot delete because this category contains product.');
             } else {
-                Category::find($id)->delete();
-                return redirect()->back()->with('success', 'Category delete successfully.');
+                $checkCategory = Category::find($id);
+                if ($checkCategory == null) {
+                    return redirect()->back()->with('success', 'Category has been deleted or does not exist.');
+                } else {
+                    Category::find($id)->delete();
+                    return redirect()->back()->with('success', 'Category delete successfully.');
+                }
             }
         }
 }

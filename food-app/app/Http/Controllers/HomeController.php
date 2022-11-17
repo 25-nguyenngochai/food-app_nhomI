@@ -36,9 +36,13 @@ class HomeController extends Controller
         else{
             $allProduct = Product::orderBy('id', 'desc')->paginate(16);
         }
+
+        $latest_products = Product::orderBy('id', 'desc')->take(12)->get();
+
         return view('home.index',[ 
             'allCategory' => $allCategory,
             'allProduct' => $allProduct,
+            'latest_products' => $latest_products,
         ]);
     }
 

@@ -960,8 +960,8 @@ ol {
 -----------------------*/
 
 .latest-product {
-	padding-top   : 80px;
-	padding-bottom: 0;
+	padding-top   : 25px;
+	padding-bottom: 80px;
 }
 
 .latest-product__text h4 {
