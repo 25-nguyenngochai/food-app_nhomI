@@ -172,7 +172,12 @@ class AdminController extends Controller
         function getEditCategory($id)
         {
             $allCategory = Category::find($id);
-            return view('admin.category.edit-category', compact('allCategory'));
+
+            if ($allCategory == null) {
+                return redirect('table-category')->with('success', 'Category has been deleted or does not exist.');
+            } else {
+                return view('admin.category.edit-category', compact('allCategory'));
+            }
         }
 
         function postEditCategory(Request $request, $id)
@@ -226,5 +231,28 @@ class AdminController extends Controller
             $add_payment = $request->all();
             Payment::create($add_payment);
             return redirect('table-payment')->with('success', 'Payment created successfully.');
+        }
+
+        // Edit Payment:
+        function getEditPayment($id)
+        {
+            $allPayment = Payment::find($id);
+
+            if ($allPayment == null) {
+                return redirect('table-payment')->with('success', 'Payment has been deleted or does not exist.');
+            } else {
+                return view('admin.payment.edit-payment', compact('allPayment'));
+            }
+        }
+
+        function postEditPayment(Request $request, $id)
+        {
+            $data = $request->validate([
+                'name' => 'required',
+            ]);
+            $payment = Payment::find($id);
+            $payment->name = $data['name'];
+            $payment->save();
+            return redirect('table-payment')->with('success', 'Payment edit successfully.');
         }
 }

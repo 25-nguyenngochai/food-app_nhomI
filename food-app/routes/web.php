@@ -19,6 +19,8 @@ use App\Http\Controllers\AdminController;
 // Page Admin:
 Route::group(['middleware' => ['CheckLogin']], function () {
     // Table Payment:
+    Route::post('edit-payment/{id}',[AdminController::class,'postEditPayment'])->name('post_edit-payment');
+    Route::get('edit-payment/{id}',[AdminController::class,'getEditPayment'])->name('get_edit-payment');   
     Route::post('add-payment',[AdminController::class,'postAddPayment'])->name('add_payment');
     Route::get('add-payment',[AdminController::class,'getAddPayment']);
     Route::get('table-payment',[AdminController::class,'tablePayment']);
