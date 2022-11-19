@@ -27,8 +27,7 @@
                                 <tr>
                                     <th> # </th>
                                     <th> Name </th>
-                                    <th> <a href="{{ url('/add-category')}}"
-                                            class="btn btn-danger btn-xs btn-theme02"><i
+                                    <th> <a href="{{ url('/add-payment')}}" class="btn btn-danger btn-xs btn-theme02"><i
                                                 class="mdi mdi-database-plus"></i> Add</a> </th>
                                 </tr>
                             </thead>
