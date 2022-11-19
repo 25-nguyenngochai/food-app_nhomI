@@ -45,7 +45,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="exampleTextarea1">Description</label>
-                                <textarea name="description" class="form-control" rows="4"
+                                <textarea name="description" class="form-control" rows="6"
                                     placeholder="Enter description">{{$allProduct->description}}</textarea>
                             </div>
                             <div class="form-group">

@@ -9477,7 +9477,7 @@ fieldset:disabled .btn {
 
 @media (min-width: 576px) {
   .modal-dialog {
-    max-width: 500px;
+    max-width: 650px;
     margin   : 30px auto;
   }
 
@@ -20059,9 +20059,8 @@ dl li {
 
 .table th img,
 .table td img {
-  width        : 36px;
-  height       : 36px;
-  border-radius: 100%;
+  width : 36px;
+  height: 36px;
 }
 
 .table th .badge,

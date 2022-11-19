@@ -84,7 +84,12 @@ class AdminController extends Controller
         function getEditProduct($id){
             $allProduct = Product::find($id);
             $allCategory = Category::orderBy('id', 'desc')->get();
-            return view('admin.product.edit-product', compact('allProduct', 'allCategory'));
+            
+            if ($allProduct == null) {
+                return redirect('table-product')->with('success', 'Product has been deleted or does not exist.');
+            } else {
+                return view('admin.product.edit-product', compact('allProduct', 'allCategory'));
+            }
         }
 
         function postEditProduct(Request $request, $id)
