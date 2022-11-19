@@ -211,8 +211,17 @@ class AdminController extends Controller
         }
     
     // Table Payment:
-    function tablePayment(){
-        $table_payment = Payment::orderBy('id', 'desc')->paginate(10);        
+    function tablePayment(Request $request){
+        if(isset($request->key)){
+            $table_payment = Payment::where('name', 'like', '%'.$request->key.'%')->orderBy('id', 'desc')
+            ->paginate(10)->appends(['key' => $request->key]);
+            foreach($table_payment as &$row){
+                $row->name = preg_replace('/(' .$request->key. ')/i', '<b style="color:red">$1</b>', $row->name);   
+              } 
+        } else{
+            $table_payment = Payment::orderBy('id', 'desc')->paginate(10);        
+        }
+
         return view('admin.payment.table-payment', [
             'table_payment' => $table_payment,
         ]);
