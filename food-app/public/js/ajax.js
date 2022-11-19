@@ -1,6 +1,4 @@
 // Update Wishlist:
-let user_id = document.getElementById('user_id').value;
-
 $(document).ready(function(){
     $('.update_wishlist').click(function(){
         $.ajaxSetup({
@@ -9,6 +7,7 @@ $(document).ready(function(){
             }
         });
         let product_id = $(this).data('product_id');
+        let user_id = document.getElementById('user_id').value;
         $.ajax({
             url: 'update_wishlist',
             type: 'POST',

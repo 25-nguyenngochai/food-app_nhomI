@@ -47,7 +47,7 @@
                                             style="width: 90px; height: 70px;"> </td>
                                     <td> {{$value->name}} </td>
                                     <td>
-                                        <a href="" class="btn btn-primary btn-xs"><i class="mdi mdi-eye"></i> Show</a>
+                                        @include('admin.product.show-product')
                                         <a href="{{route('get_edit-product', $value->id)}}"
                                             class="btn btn-primary btn-xs"><i
                                                 class="mdi mdi-pencil-box-outline"></i>Edit</a>
@@ -66,4 +66,5 @@
         </div>
     </div>
 </div>
+
 @endsection

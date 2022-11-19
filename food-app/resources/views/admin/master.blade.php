@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>Admin | Nhom I | Food-App</title>
@@ -235,6 +236,7 @@
     <script src="{{asset('assets/js/misc.js')}}"></script>
     <script src="{{asset('assets/js/dashboard.js')}}"></script>
     <script src="{{asset('assets/js/todolist.js')}}"></script>
+    <script src="{{asset('js/ajax.js')}}"></script>
     <script src="{{asset('js/food-app.js')}}"></script>
 </body>
 
