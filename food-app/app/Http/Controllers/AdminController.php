@@ -212,4 +212,19 @@ class AdminController extends Controller
             'table_payment' => $table_payment,
         ]);
     }
+
+        // Add Payment:
+        function getAddPayment(){
+            return view('admin.payment.add-payment');
+        }
+
+        function postAddPayment(Request $request)
+        {
+            $request->validate([
+                'name' => 'required'
+            ]);
+            $add_payment = $request->all();
+            Payment::create($add_payment);
+            return redirect('table-payment')->with('success', 'Payment created successfully.');
+        }
 }
