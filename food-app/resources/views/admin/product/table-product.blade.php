@@ -16,9 +16,9 @@
                             <form class="align-items-center h-100 flex justify-end" action="{{route('seach-product')}}"
                                 method="get">
                                 <div class="input-group">
-                                    <div class="input-group-prepend bg-transparent">
+                                    <button type="submit" class="input-group-prepend bg-transparent">
                                         <i class="input-group-text border-0 mdi mdi-magnify"></i>
-                                    </div>
+                                    </button>
                                     <input type="text" name="key" class="form-control bg-transparent border-0"
                                         placeholder="Search product">
                                 </div>

@@ -24,7 +24,7 @@ Route::group(['middleware' => ['CheckLogin']], function () {
     Route::get('edit-payment/{id}',[AdminController::class,'getEditPayment'])->name('get_edit-payment');   
     Route::post('add-payment',[AdminController::class,'postAddPayment'])->name('add_payment');
     Route::get('add-payment',[AdminController::class,'getAddPayment']);
-    Route::get('table-payment',[AdminController::class,'tablePayment']);
+    Route::get('table-payment',[AdminController::class,'tablePayment'])->name('seach-payment');
     // Table Category:
     Route::get('delete-category/{id}',[AdminController::class,'getDelCategory'])->name('get_delete-category');
     Route::post('edit-category/{id}',[AdminController::class,'postEditCategory'])->name('post_edit-category');
