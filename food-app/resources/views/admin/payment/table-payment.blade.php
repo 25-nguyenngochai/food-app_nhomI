@@ -41,7 +41,8 @@
                                 <tr>
                                     <td> {{$value->id}} </td>
                                     <td> {{$value->name}} </td>
-                                    <td> <a href="" class="btn btn-primary btn-xs"><i
+                                    <td> <a href="{{route('get_edit-payment', $value->id)}}"
+                                            class="btn btn-primary btn-xs"><i
                                                 class="mdi mdi-pencil-box-outline"></i>Edit</a>
                                         <a onclick="return confirm('Are you sure you want to delete?')" href=""
                                             class="btn btn-primary btn-xs"><i class="mdi mdi-delete"></i>Delete</a>
