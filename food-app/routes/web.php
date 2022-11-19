@@ -18,6 +18,8 @@ use App\Http\Controllers\AdminController;
 
 // Page Admin:
 Route::group(['middleware' => ['CheckLogin']], function () {
+    // Table Payment:
+    Route::get('table-payment',[AdminController::class,'tablePayment']);
     // Table Category:
     Route::get('delete-category/{id}',[AdminController::class,'getDelCategory'])->name('get_delete-category');
     Route::post('edit-category/{id}',[AdminController::class,'postEditCategory'])->name('post_edit-category');

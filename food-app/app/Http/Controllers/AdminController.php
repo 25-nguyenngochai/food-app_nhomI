@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use App\Models\Category;
 use App\Models\Product;
+use App\Models\Payment;
 use App\Models\User;
 
 
@@ -146,7 +147,7 @@ class AdminController extends Controller
 
     // Table Category:
     function tableCategory(){
-        $table_category = Category::orderBy('id', 'desc')->paginate(10)->appends(['category'=>'category']);        
+        $table_category = Category::orderBy('id', 'desc')->paginate(10);        
         return view('admin.category.table-category', [
             'table_category' => $table_category,
         ]);
@@ -203,4 +204,12 @@ class AdminController extends Controller
                 }
             }
         }
+    
+    // Table Payment:
+    function tablePayment(){
+        $table_payment = Payment::orderBy('id', 'desc')->paginate(10);        
+        return view('admin.payment.table-payment', [
+            'table_payment' => $table_payment,
+        ]);
+    }
 }
