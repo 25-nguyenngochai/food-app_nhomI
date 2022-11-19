@@ -198,7 +198,7 @@ class AdminController extends Controller
                                                ->where('categories.id', $id)
                                                ->count();
             if ($category){
-                return redirect()->back()->with('success', 'Cannot delete because this category contains product.');
+                return redirect()->back()->with('success', 'Cannot delete because this product contains category.');
             } else {
                 $checkCategory = Category::find($id);
                 if ($checkCategory == null) {
@@ -254,5 +254,24 @@ class AdminController extends Controller
             $payment->name = $data['name'];
             $payment->save();
             return redirect('table-payment')->with('success', 'Payment edit successfully.');
+        }
+
+        // Delete Payment:
+        function getDelPayment($id)
+        {
+            $payment = DB::table('payments')->join('bills', 'payments.id', '=', 'bills.payment_id')
+                                            ->where('payments.id', $id)
+                                            ->count();
+            if ($payment){
+                return redirect()->back()->with('success', 'Cannot delete because this bill contains payment.');
+            } else {
+                $checkPayment = Payment::find($id);
+                if ($checkPayment == null) {
+                    return redirect()->back()->with('success', 'Payment has been deleted or does not exist.');
+                } else {
+                    $checkPayment->delete();
+                    return redirect()->back()->with('success', 'Payment delete successfully.');
+                }
+            }
         }
 }
